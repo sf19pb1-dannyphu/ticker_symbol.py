@@ -1,0 +1,54 @@
+"""
+ticker.py
+
+Provide stock ticker symbols for some of the top companies on the S&P 500.
+"""
+
+import sys
+import tkinter
+
+companies = [                                 #a list of 6 lists
+    ["AAPL", "Apple Inc."],
+    ["MSFT", "Microsoft Corp."],
+    ["AMZN", "Amazon.com Inc."],
+    ["FB",   "Facebook Inc."],
+    ["BRK",  "Berkshire Hathaway Inc."],
+    ["GOOG", "Google (aka Alphabet Inc.)"]
+]
+
+names = [company[1] for company in companies] #a list of 6 strings
+
+root = tkinter.Tk()
+root.title("Stock ticker symbols")
+
+#Labels:
+
+compLabel = tkinter.Label(text = "Choose company name:", anchor = "e", padx = 5)
+compLabel.grid(row = 0, column = 0, sticky = "e")
+
+mytikLabel = tkinter.Label(text = "Ticker:", anchor = "e", padx = 5)
+mytikLabel.grid(row = 1, column = 0, sticky = "e")
+
+tikLabel = tkinter.Label(text = companies[0][0], anchor = "w", padx = 5,
+    bg = "white", fg = "green", font = (None, 20))
+tikLabel.grid(row = 1, column = 1, sticky = "ew")
+
+#Variable:
+
+com = tkinter.StringVar(root)
+com.set(companies[0][1])   #default value
+
+#Menu:
+
+def fetchTicker(name):
+    try:
+        i = names.index(name)
+    except ValueError as error:
+        print(error, file = sys.stderr)
+        sys.exit(1)
+    tikLabel["text"] = companies[i][0]
+
+compMenu = tkinter.OptionMenu(root, com, *names, command = fetchTicker)
+compMenu.grid(row = 0, column = 1, sticky = "ew")
+
+tkinter.mainloop()
