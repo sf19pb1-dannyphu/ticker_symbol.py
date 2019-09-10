@@ -18,6 +18,13 @@ companies = [                                 #a list of 6 lists
 
 names = [company[1] for company in companies] #a list of 6 strings
 
+"""
+or alternative to above
+names = []
+for company in companies:
+    names.append(company[1])
+"""
+
 root = tkinter.Tk()
 root.title("Stock ticker symbols")
 
